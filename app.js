@@ -65,12 +65,18 @@ function updateUI(game) {
     document.getElementById('game-length').innerText = game.length;
     document.getElementById('game-mechanics').innerText = game.mechanics;
     document.getElementById('game-weight').innerText = game.weight + " / 5";
+
+    const imgElement = document.getElementById('game-image');
     
-    // We add a proxy prefix to the URL to bypass BGG's hotlink protection
-    const proxy = "https://images.weserv.nl/?url=";
-    const cleanUrl = game.img.replace("https://", "");
+    // This proxy tricks BGG into thinking the request is allowed
+    const proxyUrl = "https://corsproxy.io/?" + encodeURIComponent(game.img);
     
-    document.getElementById('game-image').src = proxy + cleanUrl;
+    imgElement.src = proxyUrl;
+
+    // Optional: If the image still fails, show a placeholder so the card isn't empty
+    imgElement.onerror = function() {
+        this.src = "https://placehold.co/400x400?text=Image+Not+Found";
+    };
 }
 
 function handleSwipe(action) {
