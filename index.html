@@ -3,18 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Game Picker</title>
+    <title>Game Night Picker</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div id="app">
         <div id="card-container">
             <div id="game-card" class="card">
+                <img id="game-image" src="" alt="Box Art">
                 <h2 id="game-title">Loading...</h2>
-                <p><strong>Players:</strong> <span id="game-players"></span></p>
-                <p><strong>Length:</strong> <span id="game-length"></span></p>
-                <p><strong>Mechanics:</strong> <span id="game-mechanics"></span></p>
-                <p><strong>Weight:</strong> <span id="game-weight"></span></p>
+                <div class="stats">
+                    <p><strong>Players:</strong> <span id="game-players"></span></p>
+                    <p><strong>Length:</strong> <span id="game-length"></span></p>
+                    <p><strong>Mechanics:</strong> <span id="game-mechanics"></span></p>
+                    <p><strong>Weight:</strong> <span id="game-weight"></span></p>
+                </div>
             </div>
         </div>
 
@@ -23,13 +26,13 @@
             <button onclick="handleSwipe('right')" class="btn star">Star (Right)</button>
         </div>
 
-<div id="vault-screen" class="hidden">
-    <h2>The Vault</h2>
-    <div id="vault-list"></div>
-    <button id="draw-button" onclick="announceWinner()">Draw Winner!</button>
-    <h1 id="winner-announcement"></h1>
-    <button id="reset-button" class="hidden" onclick="resetApp()" style="margin-top:20px; background:#444; color:white; padding:10px 20px; border-radius:10px; border:none;">Start New Session</button>
-</div>
+        <div id="vault-screen" class="hidden">
+            <h2 style="color: #FFD700;">The Vault</h2>
+            <div id="vault-list"></div>
+            <button id="draw-button" onclick="announceWinner()">Draw Winner!</button>
+            <h1 id="winner-announcement"></h1>
+            <button id="reset-button" class="hidden" onclick="resetApp()">Start New Session</button>
+        </div>
     </div>
     <script src="app.js"></script>
 </body>
