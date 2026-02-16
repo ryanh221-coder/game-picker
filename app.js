@@ -1,5 +1,5 @@
-// 1. Your Full Game Database (31 Games)
-let games = [
+// 1. Your Full Game Database (Add as many as you want here!)
+const allGames = [
     { id: 1, title: "Incan Gold", players: "3-8", length: "30m", mechanics: "Push Your Luck", weight: "1.2" },
     { id: 2, title: "7 Wonders", players: "2-7", length: "30m", mechanics: "Card Drafting", weight: "2.3" },
     { id: 3, title: "Quacks of Quedlinburg", players: "2-4", length: "45m", mechanics: "Bag Building", weight: "1.9" },
@@ -33,10 +33,21 @@ let games = [
     { id: 31, title: "Pirates of Maracaibo", players: "1-4", length: "30-100m", mechanics: "Grid Movement", weight: "2.5" }
 ];
 
-// Initialize score tracking
-let state = games.map(g => ({ ...g, strikes: 0, stars: 0 }));
+let sessionGames = []; // This will hold the "Secret 20"
 let vault = [];
 let currentId = null;
+
+// Function to pick 20 random games
+function startNewSession() {
+    // 1. Shuffle the entire list
+    const shuffled = [...allGames].sort(() => 0.5 - Math.random());
+    
+    // 2. Take the first 20 and add score tracking
+    sessionGames = shuffled.slice(0, 20).map(g => ({ ...g, strikes: 0, stars: 0 }));
+    
+    vault = [];
+    nextCard();
+}
 
 function nextCard() {
     if (vault.length >= 5) {
@@ -44,10 +55,11 @@ function nextCard() {
         return;
     }
 
-    const available = state.filter(g => g.strikes < 2 && g.stars < 2);
+    const available = sessionGames.filter(g => g.strikes < 2 && g.stars < 2);
     
     if (available.length === 0) {
-        alert("No games left! Resetting list...");
+        // If we ran out of the 20 games without hitting 5 in the vault
+        alert("Ran out of games in this rotation! Starting a fresh session...");
         resetApp();
         return;
     }
@@ -66,7 +78,7 @@ function updateUI(game) {
 }
 
 function handleSwipe(action) {
-    let game = state.find(g => g.id === currentId);
+    let game = sessionGames.find(g => g.id === currentId);
 
     if (action === 'left') {
         game.strikes++;
@@ -108,9 +120,7 @@ function announceWinner() {
 }
 
 function resetApp() {
-    vault = [];
-    state = games.map(g => ({ ...g, strikes: 0, stars: 0 }));
-    
+    // UI Reset
     document.getElementById('vault-screen').classList.add('hidden');
     document.getElementById('winner-announcement').innerText = "";
     document.getElementById('winner-announcement').classList.remove('winner-zoom');
@@ -120,7 +130,9 @@ function resetApp() {
     document.getElementById('card-container').classList.remove('hidden');
     document.querySelector('.controls').classList.remove('hidden');
     
-    nextCard();
+    // Kick off a brand new secret selection
+    startNewSession();
 }
 
-nextCard();
+// Initial Start
+startNewSession();
