@@ -65,7 +65,12 @@ function updateUI(game) {
     document.getElementById('game-length').innerText = game.length;
     document.getElementById('game-mechanics').innerText = game.mechanics;
     document.getElementById('game-weight').innerText = game.weight + " / 5";
-    document.getElementById('game-image').src = game.img;
+    
+    // We add a proxy prefix to the URL to bypass BGG's hotlink protection
+    const proxy = "https://images.weserv.nl/?url=";
+    const cleanUrl = game.img.replace("https://", "");
+    
+    document.getElementById('game-image').src = proxy + cleanUrl;
 }
 
 function handleSwipe(action) {
