@@ -23,12 +23,13 @@
             <button onclick="handleSwipe('right')" class="btn star">Star (Right)</button>
         </div>
 
-        <div id="vault-screen" class="hidden">
-            <h2>The Vault</h2>
-            <div id="vault-list"></div>
-            <button id="draw-button" onclick="announceWinner()">Draw Winner!</button>
-            <h1 id="winner-announcement"></h1>
-        </div>
+<div id="vault-screen" class="hidden">
+    <h2>The Vault</h2>
+    <div id="vault-list"></div>
+    <button id="draw-button" onclick="announceWinner()">Draw Winner!</button>
+    <h1 id="winner-announcement"></h1>
+    <button id="reset-button" class="hidden" onclick="resetApp()" style="margin-top:20px; background:#444; color:white; padding:10px 20px; border-radius:10px; border:none;">Start New Session</button>
+</div>
     </div>
     <script src="app.js"></script>
 </body>
